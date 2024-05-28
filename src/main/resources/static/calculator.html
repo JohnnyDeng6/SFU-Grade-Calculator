@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="calculator.css">
+    <script src="calculator.js"></script>
+    <title>Grade Calculator</title>
+</head>
+<body>
+    <main>
+        <div class="blackbox">
+            <div class="whitebox">
+                <header>
+                        Grade Calculator
+                </header>
+                <div class="greybox">
+                    <b class="red">Activities</b>
+                    <p>Give grades to the numeric activities:</p>
+                    <table id="myTable">
+                        <tr><th>Name</th><th>Short Name</th><th>Weight</th><th>Grade</th><th>Percent</th></tr>
+                        <tr><td>Activity 1</td><td>A1</td><td>
+                            <form>
+                                <input name="weight" type="text">
+                            </form>
+                        </td><td>
+                                <form id="form1">
+                                    <input name="x" type="text" oninput="updatePercent(this)">
+                                </form>
+                                /
+                                <form id="form2">
+                                    <input name="n" type="text" oninput="updatePercent(this)">
+                                </form>
+                        </td><td class="percent">
+
+                        </td></tr>
+                    </table>
+
+                    <button class="add_row" type="button" onclick="addRow()">ADD ROW</button>
+                    <p>
+                        <b class="red">Result</b>
+                    </p>
+                    <p class="results">
+
+                    </p>
+
+
+                    <div class="buttons">
+                        <div class="action_btn">
+                            <button name="submit" class="action_btn submit" type="submit" value="WEIGHTED" onclick="weightedFunc()">WEIGHTED</button>
+                            <button name="submit" class="action_btn submit" type="submit" value="MEAN" onclick="meanFunc()">MEAN</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
