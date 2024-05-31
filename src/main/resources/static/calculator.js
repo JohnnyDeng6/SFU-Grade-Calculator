@@ -1,4 +1,5 @@
 var count = 2;
+
 function addRow() {
     var table = document.getElementById("myTable");
 
@@ -31,18 +32,30 @@ function meanFunc() {
     let adTD = document.getElementsByTagName('td');
     let len = adTD.length;
     var mean = 0;
-    for (var i = 3; i < len; i+=5) { //i = grade cell
+    var meanLength = 0;
+    for (var i = 3; i < len; i += 5) { //i = grade cell
         const form1Input = adTD[i].querySelector('input[name="x"]');
         const form2Input = adTD[i].querySelector('input[name="n"]');
 
         let x = Number(form1Input.value);
         let n = Number(form2Input.value);
+        if (form1Input.value.length === 0 && form2Input.value.length === 0) {
+        } else if (form1Input.value.length === 0 || form2Input.value.length === 0) { //invalidate results
+            mean += 1 / 0;
+        } else {
+            mean += x / n;
+            meanLength++;
+            console.log(mean);
+        }
 
-        mean += x/n;
-        console.log(mean);
     }
-    let result = mean/(len/5) * 100 + "%";
+    let result = mean / (meanLength) * 100 + "%";
     document.getElementsByClassName('results')[0].innerHTML = result;
+    if (isNaN(mean / meanLength) || !isFinite(mean / meanLength)) {
+        document.getElementsByClassName('results')[0].innerHTML = "Invalid";
+    } else {
+        document.getElementsByClassName('results')[0].innerHTML = result;
+    }
 }
 
 function weightedFunc() {
@@ -50,20 +63,29 @@ function weightedFunc() {
     let len = adTD.length;
     var mean = 0;
     var totalWeight = 0;
-    for (var i = 3; i < len; i+=5) { //i = grade cell
+    for (var i = 3; i < len; i += 5) { //i = grade cell
         const form1Input = adTD[i].querySelector('input[name="x"]');
         const form2Input = adTD[i].querySelector('input[name="n"]');
-        const form3Input = adTD[i-1].querySelector('input[name="weight"]');
+        const form3Input = adTD[i - 1].querySelector('input[name="weight"]');
 
         let x = Number(form1Input.value);
         let n = Number(form2Input.value);
         let w = Number(form3Input.value);
-
-        mean += x/n*w;
-        totalWeight += w;
+        console.log(w);
+        if (form1Input.value.length === 0 && form2Input.value.length === 0 && form3Input.value.length === 0) {
+        } else if (form3Input.value.length === 0 || form1Input.value.length === 0 || form2Input.value.length === 0) {
+            mean += 1 / 0;
+        } else {
+            mean += x / n * w;
+            totalWeight += w;
+        }
     }
-    let result = mean/totalWeight * 100 + "%";
-    document.getElementsByClassName('results')[0].innerHTML = result;
+    let result = mean / totalWeight * 100 + "%";
+    if (isNaN(mean / totalWeight) || !isFinite(mean / totalWeight)) {
+        document.getElementsByClassName('results')[0].innerHTML = "Invalid";
+    } else {
+        document.getElementsByClassName('results')[0].innerHTML = result;
+    }
 
 }
 
@@ -79,9 +101,16 @@ function updatePercent(inputElement) {
 
     console.log(`x: ${x}`);
     console.log(`n: ${n}`);
-    const percent = x/n * 100 +"%";
-
-    displayDiv.textContent = `${percent}`;
+    console.log(`form1: ${form1Input.value}`);
+    console.log(`form2: ${form2Input.value}`);
+    if (form1Input.value.length === 0 || form2Input.value.length === 0) {
+        displayDiv.textContent = ''
+    } else if (isNaN(x / n) || !isFinite(x / n)) {
+        displayDiv.textContent = 'Invalid'
+    } else {
+        const percent = x / n * 100 + "%";
+        displayDiv.textContent = `${percent}`;
+    }
 }
 
 
